@@ -19,7 +19,7 @@ export default function Home() {
           setTasks([...tasks, currTask]);
           toast({
             title: "Added a new task",
-            description: `Added new task: ${tasks[-1]}`,
+            description: `Added new task: ${currTask}`,
             action: (
               <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
             ),

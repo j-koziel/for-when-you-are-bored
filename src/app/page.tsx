@@ -11,6 +11,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { NavBar } from "./components/navigation-bar";
 
 export default function Home() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -18,7 +20,8 @@ export default function Home() {
   const [tasks, setTasks] = useState<string[] | []>([]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24">
+    <main className="flex min-h-screen flex-col items-center justify-evenly">
+      <NavBar />
       <form
         className="w-full"
         onSubmit={(e) => {
@@ -35,7 +38,7 @@ export default function Home() {
           setCurrTask("");
         }}
       >
-        <input
+        <Input
           type="text"
           placeholder="Add something that you like to do when you're bored..."
           className="min-w-full text-center outline-none"

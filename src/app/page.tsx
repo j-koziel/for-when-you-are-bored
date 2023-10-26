@@ -12,7 +12,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { NavBar } from "./components/navigation-bar";
+import { ModeToggle } from "./components/mode-toggle";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -20,8 +21,8 @@ export default function Home() {
   const [tasks, setTasks] = useState<string[] | []>([]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-evenly">
-      <NavBar />
+    <main className="flex min-h-screen flex-col items-center justify-between">
+      <ModeToggle />
       <form
         className="w-full"
         onSubmit={(e) => {
@@ -52,28 +53,26 @@ export default function Home() {
         {isSubmitted === true
           ? tasks.map((task, i) => (
               <Dialog key={i}>
-                <DialogTrigger>{task}</DialogTrigger>
+                <DialogTrigger asChild>
+                  <Button>{task}</Button>
+                </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-                    <DialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your account and remove your data from our servers.
-                    </DialogDescription>
+                    <DialogTitle>{task}</DialogTitle>
+                    <DialogDescription>{i + 1}</DialogDescription>
                   </DialogHeader>
                 </DialogContent>
               </Dialog>
             ))
           : tasks.map((task, i) => (
               <Dialog key={i}>
-                <DialogTrigger>{task}</DialogTrigger>
+                <DialogTrigger asChild>
+                  <Button>{task}</Button>
+                </DialogTrigger>
                 <DialogContent>
                   <DialogHeader>
-                    <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-                    <DialogDescription>
-                      This action cannot be undone. This will permanently delete
-                      your account and remove your data from our servers.
-                    </DialogDescription>
+                    <DialogTitle>{task}</DialogTitle>
+                    <DialogDescription>{i + 1}</DialogDescription>
                   </DialogHeader>
                 </DialogContent>
               </Dialog>

@@ -3,14 +3,22 @@
 import { useState } from "react";
 import { ToastAction } from "@/components/ui/toast";
 import { toast } from "@/components/ui/use-toast";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export default function Home() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [currTask, setCurrTask] = useState("");
-  const [tasks, setTasks] = useState([""]);
+  const [tasks, setTasks] = useState<string[] | []>([]);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-center p-24">
       <form
         className="w-full"
         onSubmit={(e) => {
@@ -37,9 +45,37 @@ export default function Home() {
         />
       </form>
 
-      {isSubmitted === true
-        ? tasks.map((task, i) => <li key={i}>{task}</li>)
-        : tasks.map((task, i) => <li key={i}>{task}</li>)}
+      <div className="flex flex-col justify-center items-center">
+        {isSubmitted === true
+          ? tasks.map((task, i) => (
+              <Dialog key={i}>
+                <DialogTrigger>{task}</DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Are you sure absolutely sure?</DialogTitle>
+                    <DialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your account and remove your data from our servers.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
+            ))
+          : tasks.map((task, i) => (
+              <Dialog key={i}>
+                <DialogTrigger>{task}</DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Are you sure absolutely sure?</DialogTitle>
+                    <DialogDescription>
+                      This action cannot be undone. This will permanently delete
+                      your account and remove your data from our servers.
+                    </DialogDescription>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
+            ))}
+      </div>
     </main>
   );
 }

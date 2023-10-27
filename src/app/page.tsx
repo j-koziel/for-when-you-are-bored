@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { ModeToggle } from "./components/mode-toggle";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 export default function Home() {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -63,7 +64,10 @@ export default function Home() {
                   <DialogContent>
                     <DialogHeader>
                       <DialogTitle>{task}</DialogTitle>
-                      <DialogDescription>{i + 1}</DialogDescription>
+                      <Badge className="w-fit">New ✨</Badge>
+                      <DialogDescription>
+                        Task Number: {i + 1}
+                      </DialogDescription>
                     </DialogHeader>
                   </DialogContent>
                 </Dialog>
@@ -76,8 +80,14 @@ export default function Home() {
                   </DialogTrigger>
                   <DialogContent>
                     <DialogHeader>
-                      <DialogTitle>{task}</DialogTitle>
-                      <DialogDescription>{i + 1}</DialogDescription>
+                      <DialogTitle>
+                        {task}
+                        <Badge className="w-fit">New ✨</Badge>
+                      </DialogTitle>
+
+                      <DialogDescription>
+                        Task Number: {i + 1}
+                      </DialogDescription>
                     </DialogHeader>
                   </DialogContent>
                 </Dialog>

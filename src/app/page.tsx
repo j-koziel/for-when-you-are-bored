@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { ModeToggle } from "./components/mode-toggle";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import undoTaskAddition from "./utils/undoTaskAddition";
 
 export default function Home() {
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
@@ -33,14 +34,27 @@ export default function Home() {
           onSubmit={(e) => {
             e.preventDefault();
             setIsSubmitted(true);
-            setTasks([...tasks, currTask]);
-            toast({
-              title: "Added a new task",
-              description: `Added new task: ${currTask}`,
-              action: (
-                <ToastAction altText="Goto schedule to undo">Undo</ToastAction>
-              ),
+            // Making sure to use the mose updated state
+            setTasks((prevTasks) => {
+              const updatedTasks = [...prevTasks, currTask];
+              toast({
+                title: "Added a new task",
+                description: `Added new task: ${currTask}`,
+                action: (
+                  <ToastAction
+                    altText="Remove the previously added task"
+                    onClick={() => {
+                      // Use the updated tasks array for removal
+                      undoTaskAddition(updatedTasks, setTasks);
+                    }}
+                  >
+                    Undo
+                  </ToastAction>
+                ),
+              });
+              return updatedTasks;
             });
+
             setCurrTask("");
           }}
         >
